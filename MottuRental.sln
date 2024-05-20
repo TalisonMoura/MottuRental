@@ -15,19 +15,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.1 - Data", "4.1 - Data", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.2 - CrossCutting", "4.2 - CrossCutting", "{0410AE2D-FDF4-41A0-9534-9FCB612CF896}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MottuRental.Domain", "src\MottuRental.Domain\MottuRental.Domain.csproj", "{DD1A18FB-DB34-48D1-95CF-160F395BBBAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MottuRental.Domain", "src\MottuRental.Domain\MottuRental.Domain.csproj", "{DD1A18FB-DB34-48D1-95CF-160F395BBBAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MottuRental.Application", "src\MottuRental.Application\MottuRental.Application.csproj", "{4B61A941-965B-4765-8A76-982AA3199DCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MottuRental.Application", "src\MottuRental.Application\MottuRental.Application.csproj", "{4B61A941-965B-4765-8A76-982AA3199DCE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MottuRental.Data", "src\MottuRental.Data\MottuRental.Data.csproj", "{EC0B6D47-5981-450A-B348-F6F864BE4D47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MottuRental.Data", "src\MottuRental.Data\MottuRental.Data.csproj", "{EC0B6D47-5981-450A-B348-F6F864BE4D47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MottuRental.Api", "src\MottuRental.Api\MottuRental.Api.csproj", "{84E23356-E2AF-4312-BB76-9CF6EC859B40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MottuRental.Api", "src\MottuRental.Api\MottuRental.Api.csproj", "{84E23356-E2AF-4312-BB76-9CF6EC859B40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MottuRental.Infra.CrossCutting.Ioc", "src\MottuRental.Infra.CrossCutting.Ioc\MottuRental.Infra.CrossCutting.Ioc.csproj", "{31B759C0-0A1F-445F-B97A-F9455B9BBE75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MottuRental.Infra.CrossCutting.Ioc", "src\MottuRental.Infra.CrossCutting.Ioc\MottuRental.Infra.CrossCutting.Ioc.csproj", "{31B759C0-0A1F-445F-B97A-F9455B9BBE75}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MottuRental.Infra.CrossCutting.Commons", "src\MottuRental.Infra.CrossCutting.Commons\MottuRental.Infra.CrossCutting.Commons.csproj", "{066972A4-3376-44FB-9F34-8D36805752CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MottuRental.Infra.CrossCutting.Commons", "src\MottuRental.Infra.CrossCutting.Commons\MottuRental.Infra.CrossCutting.Commons.csproj", "{066972A4-3376-44FB-9F34-8D36805752CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MottuRental.Domain.Core", "MottuRental.Domain.Core\MottuRental.Domain.Core.csproj", "{950DFE31-AD7C-4F01-8229-F261F611E7A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MottuRental.Domain.Core", "src\MottuRental.Domain.Core\MottuRental.Domain.Core.csproj", "{0EE0EB18-9601-450F-BCBF-A546DB30B151}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,10 +59,10 @@ Global
 		{066972A4-3376-44FB-9F34-8D36805752CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{066972A4-3376-44FB-9F34-8D36805752CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{066972A4-3376-44FB-9F34-8D36805752CD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{950DFE31-AD7C-4F01-8229-F261F611E7A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{950DFE31-AD7C-4F01-8229-F261F611E7A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{950DFE31-AD7C-4F01-8229-F261F611E7A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{950DFE31-AD7C-4F01-8229-F261F611E7A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EE0EB18-9601-450F-BCBF-A546DB30B151}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EE0EB18-9601-450F-BCBF-A546DB30B151}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EE0EB18-9601-450F-BCBF-A546DB30B151}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EE0EB18-9601-450F-BCBF-A546DB30B151}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,7 +76,7 @@ Global
 		{84E23356-E2AF-4312-BB76-9CF6EC859B40} = {C801131A-9024-47F8-A168-8C1B6C5972CD}
 		{31B759C0-0A1F-445F-B97A-F9455B9BBE75} = {0410AE2D-FDF4-41A0-9534-9FCB612CF896}
 		{066972A4-3376-44FB-9F34-8D36805752CD} = {0410AE2D-FDF4-41A0-9534-9FCB612CF896}
-		{950DFE31-AD7C-4F01-8229-F261F611E7A5} = {FE81E20A-C420-417F-9105-1CEBBB0BD08B}
+		{0EE0EB18-9601-450F-BCBF-A546DB30B151} = {FE81E20A-C420-417F-9105-1CEBBB0BD08B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B2CE4CCF-87D0-4A0E-95EC-83D80ED8A0A5}

@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\MottuRental.Infra.CrossCutting.Commons\MottuRental.Infra.CrossCutting.Commons.csproj" />
+    <ProjectReference Include="..\MottuRental.Infra.CrossCutting.Commons\MottuRental.Infra.CrossCutting.Commons.csproj" />
   </ItemGroup>
 
 </Project>
