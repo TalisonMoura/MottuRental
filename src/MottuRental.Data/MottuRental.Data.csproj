@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MottuRental.Domain\MottuRental.Domain.csproj" />
+    <ProjectReference Include="..\MottuRental.Infra.CrossCutting.Commons\MottuRental.Infra.CrossCutting.Commons.csproj" />
+  </ItemGroup>
+
 </Project>

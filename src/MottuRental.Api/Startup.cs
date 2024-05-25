@@ -1,4 +1,5 @@
-﻿using MottuRental.Api.Configurations.Swagger;
+﻿using MottuRental.Api.Configurations.Api;
+using MottuRental.Api.Configurations.Swagger;
 
 namespace MottuRental.Api;
 
@@ -17,6 +18,7 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
+        services.ConfigureStartupApi(Configuration);
         services.AddControllers();
         services.AddHttpContextAccessor();
         services.AddSwaggerDocumentation(Configuration);
@@ -25,8 +27,6 @@ public class Startup
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
-        //app.UsePathBase($"/motturental");
-
         if (env.IsDevelopment())
             app.UseDeveloperExceptionPage();
 

@@ -11,4 +11,6 @@ public class Driver(string name, string cnpj, DateTime birthDate, CnhType cnhTyp
     public CnhType CnhType { get; private set; } = cnhType;
     public string NumeroCNH { get; private set; } = numeroCNH;
     public string ImagemCNH { get; private set; } = imagemCNH;
+
+    public virtual Allocate Allocate {  get; private set; }
 }
