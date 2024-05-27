@@ -1,6 +1,6 @@
 ﻿namespace MottuRental.Domain.Core.Notifications.Interfaces;
 
-public interface IDomainNotificationHandler<T> : IDisposable
+public interface IHandler<T> : IDisposable
 {
     void Handle(T args);
     bool HasNotification();

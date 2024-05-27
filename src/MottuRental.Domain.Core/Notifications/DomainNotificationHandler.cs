@@ -3,7 +3,7 @@ using MottuRental.Domain.Core.Notifications.Interfaces;
 
 namespace MottuRental.Domain.Core.Notifications;
 
-public class DomainNotificationHandler : IDomainNotificationHandler<DomainNotification>
+public class DomainNotificationHandler : IHandler<DomainNotification>
 {
     private List<DomainNotification> _notifications;
     private readonly ILogger<DomainNotificationHandler> _logger;

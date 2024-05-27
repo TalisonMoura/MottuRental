@@ -1,4 +1,5 @@
 ﻿using MottuRental.Api.Configurations.Api;
+using MottuRental.Infra.CrossCutting.Ioc;
 using MottuRental.Api.Configurations.Swagger;
 
 namespace MottuRental.Api;
@@ -18,10 +19,18 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddMvc();
+
+        services.RegisterServices();
+
         services.ConfigureStartupApi(Configuration);
+
         services.AddControllers();
+
         services.AddHttpContextAccessor();
+
         services.AddSwaggerDocumentation(Configuration);
+
         services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining(typeof(Startup)));
     }
 

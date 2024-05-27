@@ -3,7 +3,7 @@ using MottuRental.Domain.Core.Models;
 
 namespace MottuRental.Domain.Models;
 
-public class Driver(string name, string cnpj, DateTime birthDate, CnhType cnhType, string numeroCNH, string imagemCNH) : Entity
+public class Driver(string name, string cnpj, DateTime birthDate, CnhType cnhType, string numeroCNH, string imagemCNH = null) : Entity
 {
     public string Name { get; private set; } = name;
     public string Cnpj { get; private set; } = cnpj;

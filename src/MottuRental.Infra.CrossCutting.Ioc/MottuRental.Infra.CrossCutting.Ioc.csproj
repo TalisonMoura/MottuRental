@@ -6,4 +6,11 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MottuRental.Application\MottuRental.Application.csproj" />
+    <ProjectReference Include="..\MottuRental.Data\MottuRental.Data.csproj" />
+    <ProjectReference Include="..\MottuRental.Domain.Core\MottuRental.Domain.Core.csproj" />
+    <ProjectReference Include="..\MottuRental.Domain\MottuRental.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
