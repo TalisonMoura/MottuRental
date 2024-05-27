@@ -1,6 +1,6 @@
 ﻿using MottuRental.Domain.Core.Models;
 
-namespace MottuRental.Domain.Services.Base;
+namespace MottuRental.Domain.Interfaces.Services.Base;
 
 public interface IBaseServiceEntity<T> where T : Entity
 {
