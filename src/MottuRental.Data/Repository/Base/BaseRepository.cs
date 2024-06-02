@@ -20,11 +20,11 @@ public class BaseRepository<T>(ApplicationDbContext context) : IBaseRepository<T
         return entity;
     }
 
-    public async Task<T> GetByIdAsync(Guid id) => await _dbSet.FirstAsync(x => x.Id == id);
+    public async Task<T> GetByIdAsync(Guid id) => await _dbSet.FirstOrDefaultAsync(x => x.Id.Equals(id));
 
-    public async Task<bool> ExistsAsync(Guid id) => await _dbSet.AnyAsync(x => x.Id == id);
+    public async Task<bool> ExistsAsync(Guid id) => await _dbSet.AnyAsync(x => x.Id.Equals(id));
 
-    public async Task<int> DeleteAsync(Guid id) => await _dbSet.Where(x => x.Id == id).ExecuteDeleteAsync();
+    public async Task<int> DeleteAsync(Guid id) => await _dbSet.Where(x => x.Id.Equals(id)).ExecuteDeleteAsync();
 
     public void Dispose()
     {

@@ -20,6 +20,17 @@ public class DomainNotificationHandler : IHandler<DomainNotification>
     public bool HasNotification() => GetNotifications().Count != 0;
     public virtual bool HasError() => GetNotifications().Exists(x => x.Type.Equals("Error"));
 
+    public Dictionary<string, string[]> GetErrorNotifications()
+    {
+        var keys = _notifications.Select(s => s.Key).Distinct();
+        var problemDetails = new Dictionary<string, string[]>();
+
+        foreach (var key in keys)
+            problemDetails[key] = _notifications.Where(w => w.Key.Equals(key)).Select(s => s.Value).ToArray();
+
+        return problemDetails;
+    }
+
     protected virtual void Dispose(bool disposing)
     {
         _notifications = null;
