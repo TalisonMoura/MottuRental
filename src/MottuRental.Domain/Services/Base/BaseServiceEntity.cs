@@ -10,7 +10,7 @@ public abstract class BaseServiceEntity<T> : BaseService, IBaseServiceEntity<T> 
 {
     protected IBaseRepository<T> BaseRepository { get; }
 
-    protected BaseServiceEntity(IHandler<DomainNotification> notifications, IBaseRepository<T> baseRepository) : base(notifications)
+    protected BaseServiceEntity(IBaseRepository<T> baseRepository, IHandler<DomainNotification> notifications) : base(notifications)
     {
         BaseRepository = baseRepository;
     }

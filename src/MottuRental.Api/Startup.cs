@@ -23,6 +23,8 @@ public class Startup
 
         services.RegisterServices();
 
+        services.AddAutoMapperConfiguration();
+
         services.ConfigureStartupApi(Configuration);
 
         services.AddControllers();

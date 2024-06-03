@@ -13,10 +13,10 @@
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
+	  <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MottuRental.Application\MottuRental.Application.csproj" />
     <ProjectReference Include="..\MottuRental.Infra.CrossCutting.Commons\MottuRental.Infra.CrossCutting.Commons.csproj" />
     <ProjectReference Include="..\MottuRental.Infra.CrossCutting.Ioc\MottuRental.Infra.CrossCutting.Ioc.csproj" />
   </ItemGroup>

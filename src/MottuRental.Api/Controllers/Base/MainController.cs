@@ -7,9 +7,10 @@ using MottuRental.Domain.Core.Notifications.Interfaces;
 namespace MottuRental.Api.Controllers.Base;
 
 [ApiController]
+[Route("api/[controller]")]
 [Produces("application/json")]
 [Consumes("application/json")]
-public class MainController(IHandler<DomainNotification> notifications, IMediator mediator) : Controller
+public class MainController(IMediator mediator, IHandler<DomainNotification> notifications) : Controller
 {
     protected IHandler<DomainNotification> Notifications { get; } = notifications;
     protected readonly IMediator _mediator = mediator;
@@ -23,6 +24,5 @@ public class MainController(IHandler<DomainNotification> notifications, IMediato
             return response is null ? NoContent() : Ok(response);
 
         return ResponseBadRequest();
-        
     }
 }
