@@ -4,7 +4,7 @@ using MottuRental.Application.UseCases.DriverUseCase.Response;
 
 namespace MottuRental.Application.UseCases.DriverUseCase.Request;
 
-public class CreateDriverRequest : CommandRequest<CreateDriverReponse>
+public record CreateDriverRequest : CommandRequest<CreateDriverReponse>
 {
     public string Name { get; set; }
     public string Cnpj { get; set; }

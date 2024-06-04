@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="UseCases\MotorcycleUseCase\" />
     <Folder Include="UseCases\AllocateUseCase\" />
     <Folder Include="UseCases\LoginUseCase\" />
   </ItemGroup>

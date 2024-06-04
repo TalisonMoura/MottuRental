@@ -19,35 +19,35 @@ public abstract class BaseServiceEntity<T> : BaseService, IBaseServiceEntity<T> 
 
     public virtual IQueryable<T> ExecuteQueryAsNoTracking => BaseRepository.ExecuteQueryAsNoTracking;
 
-    public async Task<T> RegisterAsync(T entity)
+    public async Task<T> RegisterAsync(T entity, CancellationToken cancellationToken = default)
     {
         if (entity.Equals(null))
             return null;
 
-        return await BaseRepository.RegisterAsync(entity);
+        return await BaseRepository.RegisterAsync(entity, cancellationToken);
     }
 
-    public async Task<T> GetByIdAsync(Guid id)
+    public async Task<T> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         if (id.Equals(null))
             return null;
 
-        return await BaseRepository.GetByIdAsync(id);
+        return await BaseRepository.GetByIdAsync(id, cancellationToken);
     }
 
-    public async Task<bool> ExistsAsync(Guid id)
+    public async Task<bool> ExistsAsync(Guid id, CancellationToken cancellationToken = default)
     {
         if (id.Equals(null))
             ArgumentException.ThrowIfNullOrEmpty(nameof(id));
 
-        return await BaseRepository.ExistsAsync(id);
+        return await BaseRepository.ExistsAsync(id, cancellationToken);
     }
 
-    public async Task<int> DeleteAsync(Guid id)
+    public async Task<int> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
     {
         if (id.Equals(null))
             ArgumentException.ThrowIfNullOrEmpty(nameof(id));
 
-        return await BaseRepository.DeleteAsync(id);
+        return await BaseRepository.DeleteAsync(id, cancellationToken);
     }
 }

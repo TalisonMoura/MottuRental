@@ -2,7 +2,7 @@
 
 namespace MottuRental.Application.UseCases.DriverUseCase.Response;
 
-public class CreateDriverReponse : ResponseBase
+public record CreateDriverReponse : ResponseBase
 {
     public bool IsRegistered { get; set; }
 }

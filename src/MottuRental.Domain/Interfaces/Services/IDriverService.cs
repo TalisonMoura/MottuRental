@@ -5,5 +5,5 @@ namespace MottuRental.Domain.Interfaces.Services;
 
 public interface IDriverService : IBaseServiceEntity<Driver>
 {
-    Task<Driver> RegisterDriverAsync(Driver driver);
+    Task<Driver> RegisterDriverAsync(Driver driver, CancellationToken cancellationToken = default);
 }

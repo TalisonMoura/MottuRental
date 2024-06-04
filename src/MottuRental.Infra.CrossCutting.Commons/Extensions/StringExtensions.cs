@@ -5,7 +5,8 @@ namespace MottuRental.Infra.CrossCutting.Commons.Extensions;
 public static class StringExtensions
 {
     public static string RemoveNonNumeric(this string str) => Regex.Replace(str, @"\D", "");
-    public static bool IsNullOrWhiteSpace(this string str) => string.IsNullOrWhiteSpace(str);
+    public static bool IsNullOrWhiteSpace(this string? str) => string.IsNullOrWhiteSpace(str);
+    public static string RemoveSpecialCharacters(this string str) => Regex.Replace(str, "[^a-zA-Z0-9]", "");
     public static bool IsEquals(this string x, string y) => string.Equals(x, y, StringComparison.OrdinalIgnoreCase);
     public static string DbStringFormat(this string value, string host, string user, string secret) => value.Replace("{Host}", host).Replace("{User}", user).Replace("{Secret}", secret);
 

@@ -14,17 +14,17 @@ public class BaseRepository<T>(ApplicationDbContext context) : IBaseRepository<T
 
     public virtual IQueryable<T> ExecuteQueryAsNoTracking { get => _dbSet.AsNoTracking(); }
 
-    public async Task<T> RegisterAsync(T entity)
+    public async Task<T> RegisterAsync(T entity, CancellationToken cancellationToken = default)
     {
-        await _dbSet.AddAsync(entity);
+        await _dbSet.AddAsync(entity, cancellationToken);
         return entity;
     }
 
-    public async Task<T> GetByIdAsync(Guid id) => await _dbSet.FirstOrDefaultAsync(x => x.Id.Equals(id));
+    public async Task<T> GetByIdAsync(Guid id, CancellationToken cancellationToken = default) => await _dbSet.FirstOrDefaultAsync(x => x.Id.Equals(id), cancellationToken);
 
-    public async Task<bool> ExistsAsync(Guid id) => await _dbSet.AnyAsync(x => x.Id.Equals(id));
+    public async Task<bool> ExistsAsync(Guid id, CancellationToken cancellationToken = default) => await _dbSet.AnyAsync(x => x.Id.Equals(id), cancellationToken);
 
-    public async Task<int> DeleteAsync(Guid id) => await _dbSet.Where(x => x.Id.Equals(id)).ExecuteDeleteAsync();
+    public async Task<int> DeleteAsync(Guid id, CancellationToken cancellationToken = default) => await _dbSet.Where(x => x.Id.Equals(id)).ExecuteDeleteAsync(cancellationToken);
 
     public void Dispose()
     {

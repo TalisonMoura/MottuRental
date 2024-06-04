@@ -22,7 +22,7 @@ public class CreateDriverUseCase(
 
     public override async Task<CreateDriverReponse> HandleSafeMode(CreateDriverRequest request, CancellationToken cancellationToken)
     {
-        var response = await _driverService.RegisterDriverAsync(_mapper.Map<Driver>(request));
+        var response = await _driverService.RegisterDriverAsync(_mapper.Map<Driver>(request), cancellationToken);
 
         if (response is null)
         {
