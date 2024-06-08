@@ -9,6 +9,6 @@ public abstract class Vehicle : Entity
     public string Plate { get; private set; }
     public bool IsAllocated { get; private set; }
 
-    protected void ToAllocate(bool allocate) => IsAllocated = allocate;
-    protected void UpdatePlate(string updatePlate) => Plate = updatePlate;
+    public void ToAllocate(bool allocate) => IsAllocated = allocate;
+    public void UpdatePlate(string updatePlate) => Plate = updatePlate;
 }
