@@ -1,7 +1,8 @@
 ﻿using MottuRental.Api.Configurations.Api;
 using MottuRental.Infra.CrossCutting.Ioc;
 using MottuRental.Api.Configurations.Swagger;
-using MottuRental.Infra.CrossCutting.MessageBroker.Configuration;
+using MottuRental.Application.MessageBroker.Configuration;
+
 
 namespace MottuRental.Api;
 

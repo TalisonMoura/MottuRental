@@ -4,7 +4,9 @@ public interface IHandler<T> : IDisposable
 {
     void Handle(T args);
     bool HasNotification();
-    List<T> GetNotifications();
     void ClearNotifications();
+    List<T> GetNotifications();
+    void LogError(Exception ex);
+    void LogError(Exception ex, string errorMessage);
     Dictionary<string, string[]> GetErrorNotifications();
 }

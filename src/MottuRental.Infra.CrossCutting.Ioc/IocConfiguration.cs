@@ -8,8 +8,10 @@ using Microsoft.Extensions.DependencyInjection;
 using MottuRental.Domain.Interfaces.Repository;
 using MottuRental.Domain.Interfaces.Repository.Base;
 using MottuRental.Domain.Core.Notifications.Interfaces;
+using MottuRental.Infra.CrossCutting.MessageBroker.Services;
 using MottuRental.Application.UseCases.DriverUseCase.Request;
 using MottuRental.Application.UseCases.DriverUseCase.Response;
+using MottuRental.Infra.CrossCutting.MessageBroker.Interfaces;
 using MottuRental.Application.UseCases.DriverUseCase.Handlers;
 using MottuRental.Application.UseCases.AllocateUseCase.Request;
 using MottuRental.Application.UseCases.AllocateUseCase.Handlers;
@@ -37,6 +39,8 @@ public static class IocConfiguration
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
         services.AddScoped<IHandler<DomainNotification>, DomainNotificationHandler>();
+        services.AddTransient<IMessageBrokerProducer, MessageBrokerProducerService>();
+        services.AddTransient<IMessageBrokerConsumer, MessageBrokerConsumerService>();
 
         return services;
     }

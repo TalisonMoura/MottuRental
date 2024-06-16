@@ -9,12 +9,14 @@ namespace MottuRental.Infra.CrossCutting.MessageBroker.Services;
 
 public class MessageBrokerProducerService(
     MessageBrokerHostProvider hostProvider, 
-    ILogger<MessageBrokerProducerService> logger) : MessageBrokerBaseService<MessageBrokerProducerService>(hostProvider, logger), IMessageBrokerProducer
+    ILogger<MessageBrokerProducerService> logger) : MessageBrokerBase<MessageBrokerProducerService>(hostProvider, logger), IMessageBrokerProducer
 {
     public void SendMessage(string endpoint, object message)
     {
-        Channel.QueueDeclare(queue: endpoint);
         Logger.LogInformation($"Publishing message with payload {message.ToJson()}");
-        Channel.BasicPublish(exchange: string.Empty, routingKey: endpoint, basicProperties: null, body: message.ToJson().ToByte());
+        ExchangeDeclare("motorcycle", ExchangeType.Fanout);
+        QueueDeclare(endpoint, false);
+        QueueBind("motorcyle", "info");
+        Channel.BasicPublish(exchange: "motorcycle", routingKey: "info", basicProperties: null, body: message.ToJson().ToByte());
     }
 }

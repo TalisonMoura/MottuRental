@@ -11,6 +11,7 @@
     <ProjectReference Include="..\MottuRental.Data\MottuRental.Data.csproj" />
     <ProjectReference Include="..\MottuRental.Domain.Core\MottuRental.Domain.Core.csproj" />
     <ProjectReference Include="..\MottuRental.Domain\MottuRental.Domain.csproj" />
+    <ProjectReference Include="..\MottuRental.Infra.CrossCutting.MessageBroker\MottuRental.Infra.CrossCutting.MessageBroker.csproj" />
   </ItemGroup>
 
 </Project>

@@ -42,4 +42,8 @@ public class DomainNotificationHandler : IHandler<DomainNotification>
         Dispose(true);
         GC.SuppressFinalize(this);
     }
+
+    public void LogError(Exception ex) => _logger.LogError(ex, string.Empty);
+
+    public void LogError(Exception ex, string errorMessage) => _logger.LogError(ex, errorMessage);
 }

@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: motturental
+      RABBITMQ_DEFAULT_PASS: motturental
+      RABBITMQ_DEFAULT_VHOST: /
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    hostname: rabbitmq
+
+  postgres:
+    image: postgres:13
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: '&PJXT])CY9Ds~Up/)p!PY@E'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    hostname: postgres
+
+volumes:
+  postgres_data:
+  rabbitmq_data:

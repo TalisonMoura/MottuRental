@@ -1,24 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>disable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>disable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="13.0.1" />
-    <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="13.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="MessageBroker\" />
-    <Folder Include="UseCases\LoginUseCase\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="UseCases\LoginUseCase\" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\MottuRental.Domain\MottuRental.Domain.csproj" />
-    <ProjectReference Include="..\MottuRental.Infra.CrossCutting.Commons\MottuRental.Infra.CrossCutting.Commons.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\MottuRental.Domain\MottuRental.Domain.csproj" />
+		<ProjectReference Include="..\MottuRental.Infra.CrossCutting.Commons\MottuRental.Infra.CrossCutting.Commons.csproj" />
+		<ProjectReference Include="..\MottuRental.Infra.CrossCutting.MessageBroker\MottuRental.Infra.CrossCutting.MessageBroker.csproj" />
+	</ItemGroup>
 
 </Project>
