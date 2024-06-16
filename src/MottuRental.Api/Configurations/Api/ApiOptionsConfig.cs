@@ -14,6 +14,8 @@ internal static class ApiOptionsConfig
 
         services.AddSingleton(typeof(JwtProvider), appConfig.JwtProvider);
         services.AddSingleton(typeof(DbContextProvider), appConfig.DbContext);
+        services.AddSingleton(typeof(MessageBrokerHostProvider), appConfig.MessageBrokerHostSettings);
+        services.AddSingleton(typeof(MessageBrokerQueuesProvider), appConfig.MessageBrokerQueuesSettings);
     }
 }
 
@@ -21,4 +23,6 @@ internal class AppConfig
 {
     public JwtProvider JwtProvider { get; set; } = new();
     public DbContextProvider DbContext { get; set; } = new();
+    public MessageBrokerHostProvider MessageBrokerHostSettings { get; set; } = new();
+    public MessageBrokerQueuesProvider MessageBrokerQueuesSettings { get; set; } = new();
 }

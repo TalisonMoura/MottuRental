@@ -1,6 +1,7 @@
 ﻿using MottuRental.Api.Configurations.Api;
 using MottuRental.Infra.CrossCutting.Ioc;
 using MottuRental.Api.Configurations.Swagger;
+using MottuRental.Infra.CrossCutting.MessageBroker.Configuration;
 
 namespace MottuRental.Api;
 
@@ -27,6 +28,8 @@ public class Startup
 
         services.ConfigureStartupApi(Configuration);
 
+        services.AddServiceBusConfiguration();
+
         services.AddControllers();
 
         services.AddHttpContextAccessor();
@@ -41,9 +44,9 @@ public class Startup
         if (env.IsDevelopment())
             app.UseDeveloperExceptionPage();
 
-        app.UseSwaggerDocumentation();
-
         app.UseRouting();
+
+        app.UseSwaggerDocumentation();
 
         app.UseHttpsRedirection();
 

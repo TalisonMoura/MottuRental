@@ -12,6 +12,4 @@ public class AllocateService(
     IHandler<DomainNotification> notifications) : BaseServiceEntity<Allocate>(baseRepository, notifications), IAllocateService
 {
 
-    public override IQueryable<Allocate> ExecuteQuery => base.ExecuteQuery.Where(x => !x.Motorcycle.IsAllocated);
-    public override IQueryable<Allocate> ExecuteQueryAsNoTracking => base.ExecuteQueryAsNoTracking.Where(x => !x.Motorcycle.IsAllocated);
 }

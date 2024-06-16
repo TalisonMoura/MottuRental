@@ -11,11 +11,13 @@ using MottuRental.Domain.Core.Notifications.Interfaces;
 using MottuRental.Application.UseCases.DriverUseCase.Request;
 using MottuRental.Application.UseCases.DriverUseCase.Response;
 using MottuRental.Application.UseCases.DriverUseCase.Handlers;
+using MottuRental.Application.UseCases.AllocateUseCase.Request;
+using MottuRental.Application.UseCases.AllocateUseCase.Handlers;
+using MottuRental.Application.UseCases.AllocateUseCase.Response;
 using MottuRental.Application.UseCases.MotorcycleUseCase.Request;
 using MottuRental.Application.UseCases.MotorcycleUseCase.Response;
 using MottuRental.Application.UseCases.MotorcycleUseCase.Handlers;
 using MottuRental.Infra.CrossCutting.Commons.Authentication.Authorization;
-using System.Collections.Generic;
 
 namespace MottuRental.Infra.CrossCutting.Ioc;
 
@@ -44,10 +46,13 @@ public static class IocConfiguration
         services.AddScoped<IDriverService, DriverService>();
         services.AddScoped<IMotorcycleService, MotorcycleService>();
 
-
         services.AddScoped<IRequestHandler<CreateDriverRequest, CreateDriverReponse>, CreateDriverUseCase>();
+
         services.AddScoped<IRequestHandler<CreateMotorcycleRequest, CreateMotorcycleResponse>, CreateMotorcycleUseCase>();
+        services.AddScoped<IRequestHandler<AllocateMotorcycleRequest, AllocateMotorcycleResponse>, AllocateMotorcycleUseCase>();
         services.AddScoped<IRequestHandler<GetMotorcycleByFilterRequest, List<GetMotorcycleByFilterResponse>>, GetMotorcycleByFilterUseCase>();
+        services.AddScoped<IRequestHandler<DeleteMotorcycleRequest, bool>, DeleteMotorcycleUseCase>();
+        services.AddScoped<IRequestHandler<UpdateMotorcycleRequest, bool>, UpdateMotorcycleUseCase>();
 
         return services;
     }
