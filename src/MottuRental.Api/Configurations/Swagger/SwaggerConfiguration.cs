@@ -1,4 +1,5 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using System.Reflection;
+using Microsoft.OpenApi.Models;
 
 namespace MottuRental.Api.Configurations.Swagger;
 
@@ -13,7 +14,7 @@ public static class SwaggerConfiguration
         {
             c.SwaggerDoc("v1", new OpenApiInfo
             {
-                Title = "Mottu Rental",
+                Title = "MottuRental.Api",
                 Version = "v1",
                 Description = "This is a basic project to handle the rental",
                 Contact = new OpenApiContact
@@ -22,6 +23,8 @@ public static class SwaggerConfiguration
                     Url = new Uri("https://github.com/TalisonMoura/MottuRental")
                 },
             });
+            
+            //c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
 
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
@@ -48,8 +51,7 @@ public static class SwaggerConfiguration
             });
 
             c.CustomSchemaIds(x => x.FullName);
-            c.AddServer(new OpenApiServer() { Url = $"/motturental" });
-            //c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
+            c.AddServer(new OpenApiServer() { Url = "/motturental" });
         });
     }
 

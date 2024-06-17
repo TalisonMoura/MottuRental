@@ -18,9 +18,15 @@ public record CreateDriverRequest : CommandRequest<CreateDriverReponse>
     public DateTime BirthDate { get; set; }
 
     [JsonIgnore]
-    public CnhType CnhType { get; set; }
+    public CnhType CnhType { get; private set; }
 
     [Required]
     [Length(11,11)]
     public string NumeroCNH { get; set; }
+
+    public CreateDriverRequest AssignCnh(CnhType cnhType)
+    {
+        CnhType = cnhType;
+        return this;
+    }
 }

@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using MottuRental.Domain.Enums;
 using MottuRental.Api.Controllers.Base;
 using Swashbuckle.AspNetCore.Annotations;
 using MottuRental.Domain.Core.Notifications;
-using MottuRental.Application.Commons.Responses;
 using MottuRental.Domain.Core.Notifications.Interfaces;
+using MottuRental.Infra.CrossCutting.Commons.Extensions;
 using MottuRental.Application.UseCases.DriverUseCase.Request;
 using MottuRental.Application.UseCases.DriverUseCase.Response;
 
@@ -14,9 +15,17 @@ public class DriverController(
     IMediator mediator, 
     IHandler<DomainNotification> notifications) : MainController(mediator, notifications)
 {
-    [HttpPost]
+    /// <summary>
+    /// Create a new Driver
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    [HttpPost("{cnhType}")]
     [SwaggerResponse(StatusCodes.Status201Created, null, typeof(CreateDriverReponse))]
-    [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(InternalValidationProblemDetails))]
-    public async Task<ActionResult<CreateDriverReponse>> PostAsync(CreateDriverRequest request)
-        => Response(await _mediator.Send(request));
+    public async Task<ActionResult<CreateDriverReponse>> PostAsync(CnhType cnhType, CreateDriverRequest request)
+    {
+        request.AssignCnh(cnhType);
+        Notifications.LogInfo($"Creating a driver with payload: {request.ToJson()}");
+        return Response(await _mediator.Send(request));
+    }
 }

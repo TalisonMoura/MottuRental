@@ -7,9 +7,9 @@ using MottuRental.Domain.Core.Notifications.Interfaces;
 namespace MottuRental.Api.Controllers.Base;
 
 [ApiController]
-[Route("api/[controller]")]
 [Produces("application/json")]
 [Consumes("application/json")]
+[Route("/api/v{v:apiVersion}/[controller]")]
 public class MainController(IMediator mediator, IHandler<DomainNotification> notifications) : Controller
 {
     protected IHandler<DomainNotification> Notifications { get; } = notifications;

@@ -6,6 +6,7 @@ public interface IHandler<T> : IDisposable
     bool HasNotification();
     void ClearNotifications();
     List<T> GetNotifications();
+    void LogInfo(string infoMessage);
     void LogError(Exception ex);
     void LogError(Exception ex, string errorMessage);
     Dictionary<string, string[]> GetErrorNotifications();

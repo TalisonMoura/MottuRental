@@ -48,12 +48,14 @@ public static class IocConfiguration
     public static IServiceCollection RegisterDomainService(IServiceCollection services)
     {
         services.AddScoped<IDriverService, DriverService>();
+        services.AddScoped<IAllocateService, AllocateService>();
         services.AddScoped<IMotorcycleService, MotorcycleService>();
 
         services.AddScoped<IRequestHandler<CreateDriverRequest, CreateDriverReponse>, CreateDriverUseCase>();
 
-        services.AddScoped<IRequestHandler<CreateMotorcycleRequest, CreateMotorcycleResponse>, CreateMotorcycleUseCase>();
         services.AddScoped<IRequestHandler<AllocateMotorcycleRequest, AllocateMotorcycleResponse>, AllocateMotorcycleUseCase>();
+
+        services.AddScoped<IRequestHandler<CreateMotorcycleRequest, CreateMotorcycleResponse>, CreateMotorcycleUseCase>();
         services.AddScoped<IRequestHandler<GetMotorcycleByFilterRequest, List<GetMotorcycleByFilterResponse>>, GetMotorcycleByFilterUseCase>();
         services.AddScoped<IRequestHandler<DeleteMotorcycleRequest, bool>, DeleteMotorcycleUseCase>();
         services.AddScoped<IRequestHandler<UpdateMotorcycleRequest, bool>, UpdateMotorcycleUseCase>();

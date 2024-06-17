@@ -11,6 +11,7 @@ internal static class ApiConfig
 
         services.LoadConfiguration(configuration);
         services.AddDbContext<ApplicationDbContext>();
+        services.AddWebApiVersioning();
 
         return services;
     }

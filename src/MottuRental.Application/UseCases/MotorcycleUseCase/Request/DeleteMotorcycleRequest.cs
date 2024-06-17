@@ -5,5 +5,11 @@ namespace MottuRental.Application.UseCases.MotorcycleUseCase.Request;
 
 public record DeleteMotorcycleRequest : CommandRequest<bool>
 {
-    [Required] public Guid Id { get; set; }
+    [Required] public Guid Id { get; private set; }
+
+    public DeleteMotorcycleRequest AssignId(Guid id)
+    {
+        Id = id;
+        return this;
+    }
 }

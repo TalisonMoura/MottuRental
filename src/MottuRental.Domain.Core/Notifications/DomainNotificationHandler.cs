@@ -7,7 +7,11 @@ public class DomainNotificationHandler : IHandler<DomainNotification>
 {
     private List<DomainNotification> _notifications;
     private readonly ILogger<DomainNotificationHandler> _logger;
-    public DomainNotificationHandler() => ClearNotifications();
+    public DomainNotificationHandler(ILogger<DomainNotificationHandler> logger)
+    {
+        ClearNotifications();
+        _logger = logger;
+    }
 
     public void Handle(DomainNotification args)
     {
@@ -31,6 +35,10 @@ public class DomainNotificationHandler : IHandler<DomainNotification>
         return problemDetails;
     }
 
+    public void LogInfo(string infoMessage) => _logger.LogInformation(infoMessage);
+    public void LogError(Exception ex) => _logger.LogError(ex, string.Empty);
+    public void LogError(Exception ex, string errorMessage) => _logger.LogError(ex, errorMessage);
+
     protected virtual void Dispose(bool disposing)
     {
         _notifications = null;
@@ -42,8 +50,4 @@ public class DomainNotificationHandler : IHandler<DomainNotification>
         Dispose(true);
         GC.SuppressFinalize(this);
     }
-
-    public void LogError(Exception ex) => _logger.LogError(ex, string.Empty);
-
-    public void LogError(Exception ex, string errorMessage) => _logger.LogError(ex, errorMessage);
 }

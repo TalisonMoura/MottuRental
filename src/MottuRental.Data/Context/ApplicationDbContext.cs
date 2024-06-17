@@ -12,6 +12,8 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         if (!optionsBuilder.IsConfigured)
             optionsBuilder.UseNpgsql(_contextProvider.ConnectionString);
 
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
         base.OnConfiguring(optionsBuilder);
     }
 

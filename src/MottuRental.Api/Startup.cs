@@ -1,8 +1,8 @@
 ﻿using MottuRental.Api.Configurations.Api;
 using MottuRental.Infra.CrossCutting.Ioc;
 using MottuRental.Api.Configurations.Swagger;
+using MottuRental.Data.Context.Configurations;
 using MottuRental.Application.MessageBroker.Configuration;
-
 
 namespace MottuRental.Api;
 
@@ -42,14 +42,18 @@ public class Startup
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
+        app.UsePathBase("/motturental");
+
         if (env.IsDevelopment())
             app.UseDeveloperExceptionPage();
 
-        app.UseRouting();
+        app.UpdateDatabase();
 
         app.UseSwaggerDocumentation();
 
         app.UseHttpsRedirection();
+
+        app.UseRouting();
 
         app.UseAuthentication();
         app.UseAuthorization();
