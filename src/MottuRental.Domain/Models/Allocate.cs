@@ -7,7 +7,7 @@ public class Allocate(Guid driverId, Guid motorcycleId, int allocatePeriod, Date
     public Guid DriverId { get; private set; } = driverId;
     public Guid MotorcycleId { get; private set; } = motorcycleId;
     public int AllocatePeriod { get; private set; } = allocatePeriod;
-    public double AllocateTax { get; private set; } = SetAllocateTax(allocatePeriod);
+    public double TotalAmount { get; private set; } = SetAllocateTax(allocatePeriod);
 
     public DateTime StartDate { get; private set; } = startDate;
     public DateTime EndDate { get; private set; } = startDate.AddDays(allocatePeriod);
@@ -26,19 +26,30 @@ public class Allocate(Guid driverId, Guid motorcycleId, int allocatePeriod, Date
         _ => throw new NotImplementedException()
     };
 
-    public void SetRecentContractBreakTaxFee()
+    public Allocate CalculateTotalAmmout()
+    {
+        if (!DeliveryForecast.Date.Equals(EndDate.Date))
+            if (DeliveryForecast < EndDate)
+                SetRecentContractBreakTaxFee();
+            else
+                SetLateContractBreakTaxFee();
+
+        return this;
+    }
+
+    private void SetRecentContractBreakTaxFee()
     {
         var notEffectiveDays = EndDate.Subtract(DeliveryForecast).Days;
         var effectiveDays = AllocatePeriod - notEffectiveDays;
 
-        AllocateTax = AllocatePeriod switch
+        TotalAmount = AllocatePeriod switch
         {
             7 => (notEffectiveDays * 30.00 * 0.2) * effectiveDays,
             15 => (notEffectiveDays * 28.00 * 0.4) * effectiveDays
         };
     }
 
-    public void SetLateContractBreakTaxFee() => AllocateTax += DeliveryForecast.Subtract(EndDate).Days * 50.00;
+    private void SetLateContractBreakTaxFee() => TotalAmount += DeliveryForecast.Subtract(EndDate).Days * 50.00;
 
-    public void SetLateTaxFee(int daysAfter) => AllocateTax += daysAfter * 50.00;
+    public void SetLateTaxFee(int daysAfter) => TotalAmount += daysAfter * 50.00;
 }

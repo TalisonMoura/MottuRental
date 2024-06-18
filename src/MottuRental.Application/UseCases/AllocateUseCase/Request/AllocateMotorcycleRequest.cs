@@ -9,7 +9,6 @@ namespace MottuRental.Application.UseCases.AllocateUseCase.Request;
 public record AllocateMotorcycleRequest : CommandRequest<AllocateMotorcycleResponse>
 {
     [Required] public DateTime StartDate { get; set; }
-    [Required] public DateTime EndDate { get; set; }
     [Required] public DateTime DeliveryForecast { get; set; }
     [JsonIgnore] public PlanType PlanType { get; private set; }
     [JsonIgnore] public Guid DriverId { get; private set; }

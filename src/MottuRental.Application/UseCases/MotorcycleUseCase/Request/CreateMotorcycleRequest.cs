@@ -7,9 +7,9 @@ namespace MottuRental.Application.UseCases.MotorcycleUseCase.Request;
 
 public record CreateMotorcycleRequest : CommandRequest<CreateMotorcycleResponse>
 {
-    private string _model;
-
     [Required] public int Year { get; set; }
-    [Required] public string Model { get => _model; set => _model = value.RemoveSpecialCharacters(); }
-    [Required] public string Plate { get; set; }
+    [Required] public string Model { get; set; }
+
+    private string _plate;
+    [Required] public string Plate { get => _plate; set => _plate = value.RemoveSpecialCharacters(); }
 }

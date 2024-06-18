@@ -27,8 +27,9 @@ public class MotorcycleController(
     [HttpGet]
     [SwaggerResponse(StatusCodes.Status201Created, null, typeof(List<GetMotorcycleByFilterResponse>))]
     [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(InternalValidationProblemDetails))]
-    public async Task<ActionResult<List<GetMotorcycleByFilterResponse>>> GetAsync(GetMotorcycleByFilterRequest request)
+    public async Task<ActionResult<List<GetMotorcycleByFilterResponse>>> GetAsync([FromHeader] string? plate)
     {
+        var request = new GetMotorcycleByFilterRequest().AssignPlate(plate);
         Notifications.LogInfo($"Get a motorcycle with payload: [{request.ToJson()}]");
         return Response(await _mediator.Send(request));
     }

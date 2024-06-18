@@ -26,7 +26,7 @@ public class CreateMotorcycleUseCase(
 
         if (entity is null)
         {
-            Notifications.Handle(DomainNotification.Error("_002", $"The plate: [{request.Plate}] already exists"));
+            Notifications.Handle(DomainNotification.Error("_002", $"The plate already exist"));
             return default;
         }
 

@@ -30,18 +30,21 @@ public class AllocateMotorcycleUseCase(
     {
         var driver = await _driverService.ExecuteQueryAsNoTracking.FirstOrDefaultAsync(x => x.Id.Equals(request.DriverId), cancellationToken);
 
-        var isNotAllocated = await _motorcycleService.ExecuteQueryAsNoTracking.Where(x => !x.IsAllocated).FirstOrDefaultAsync(x => x.Id.Equals(request.MotorcycleId), cancellationToken);  
+        var motorcycle = await _motorcycleService.ExecuteQueryAsNoTracking.Where(x => !x.IsAllocated).FirstOrDefaultAsync(x => x.Id.Equals(request.MotorcycleId), cancellationToken);  
 
-        if (isNotAllocated is not null && driver.CnhType is CnhType.A or CnhType.AB)
+        if (motorcycle is not null && driver?.CnhType is CnhType.A or CnhType.AB)
         {
-            var response = await _baseService.RegisterAsync(new Allocate(request.DriverId, request.MotorcycleId, (int)request.PlanType, request.StartDate, request.DeliveryForecast), cancellationToken);
+            var entity = new Allocate(request.DriverId, request.MotorcycleId, (int)request.PlanType, request.StartDate, request.DeliveryForecast);
+            motorcycle.ToAllocate(true);
+
+            var response = await _baseService.RegisterAsync(entity.CalculateTotalAmmout(), cancellationToken);
 
             await SaveChangesAsync();
 
             return _mapper.Map<AllocateMotorcycleResponse>(response);
         }
 
-        Notifications.Handle(DomainNotification.Error("_005", "The motorcycle is already allocated or the driver cannot perform withou cnh A"));
+        Notifications.Handle(DomainNotification.Error("_005", "The motorcycle is already allocated or the driver cannot allocate without cnh A"));
         return default;
     }
 }

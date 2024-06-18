@@ -14,8 +14,8 @@ public class MotorcycleService(
 {
     public async Task<Motorcycle> RegisterMotorcycleAsync(Motorcycle motorcycle, CancellationToken cancellationToken = default)
     {
-        var entity = await ExecuteQuery.Where(x => x.Plate.Contains(motorcycle.Plate, StringComparison.OrdinalIgnoreCase)).FirstOrDefaultAsync(cancellationToken);
+        var entity = await ExecuteQueryAsNoTracking.AnyAsync(x => x.Plate.Contains(motorcycle.Plate), cancellationToken);
 
-        return entity is null ? await RegisterAsync(motorcycle, cancellationToken) : default;
+        return !entity ? await RegisterAsync(motorcycle, cancellationToken) : default;
     }
 }

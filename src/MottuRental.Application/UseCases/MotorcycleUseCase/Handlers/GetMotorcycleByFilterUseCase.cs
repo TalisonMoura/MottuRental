@@ -23,7 +23,11 @@ public class GetMotorcycleByFilterUseCase(
 
     public override async Task<List<GetMotorcycleByFilterResponse>> HandleSafeMode(GetMotorcycleByFilterRequest request, CancellationToken cancellationToken)
     {
-        var query = request.Plate.IsNullOrWhiteSpace() ? _baseService.ExecuteQueryAsNoTracking : _baseService.ExecuteQueryAsNoTracking.Where(x => x.Plate.Contains(request.Plate));
+        var query = request.Plate.IsNullOrWhiteSpace() switch
+        {
+            true => _baseService.ExecuteQueryAsNoTracking,
+            false => _baseService.ExecuteQueryAsNoTracking.Where(x => x.Plate.Contains(request.Plate))
+        };
 
         var response = await query.ToListAsync(cancellationToken);
 

@@ -15,11 +15,6 @@ public class DriverController(
     IMediator mediator, 
     IHandler<DomainNotification> notifications) : MainController(mediator, notifications)
 {
-    /// <summary>
-    /// Create a new Driver
-    /// </summary>
-    /// <param name="request"></param>
-    /// <returns></returns>
     [HttpPost("{cnhType}")]
     [SwaggerResponse(StatusCodes.Status201Created, null, typeof(CreateDriverReponse))]
     public async Task<ActionResult<CreateDriverReponse>> PostAsync(CnhType cnhType, CreateDriverRequest request)

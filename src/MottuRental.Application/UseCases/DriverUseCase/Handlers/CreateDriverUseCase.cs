@@ -26,7 +26,7 @@ public class CreateDriverUseCase(
 
         if (response is null)
         {
-            Notifications.Handle(DomainNotification.Error("_001", "This driver has already exists"));
+            Notifications.Handle(DomainNotification.Error("_001", "This driver has already exist"));
             return default;
         }
 

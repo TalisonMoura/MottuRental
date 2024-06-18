@@ -15,7 +15,7 @@ public class DomainNotificationHandler : IHandler<DomainNotification>
 
     public void Handle(DomainNotification args)
     {
-        if (_notifications.Exists(x => string.Equals(x.Value.Trim(), args.Value.Trim(), StringComparison.OrdinalIgnoreCase)))
+        if (!_notifications.Exists(x => string.Equals(x.Value.Trim(), args.Value.Trim(), StringComparison.OrdinalIgnoreCase)))
             _notifications.Add(args);
     }
 
