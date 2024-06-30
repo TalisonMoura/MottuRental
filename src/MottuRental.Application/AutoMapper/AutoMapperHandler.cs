@@ -18,7 +18,11 @@ public class AutoMapperHandler : Profile
 
     public void ResquetMapper()
     {
-        CreateMap<CreateDriverRequest, Driver>();
+        CreateMap<CreateDriverRequest, Driver>()
+            .AfterMap((src, dest) =>
+            {
+                dest.SetImageName($"{src.NumeroCNH}.{src.File.FileName.Split('.')[1]}");
+            });
         CreateMap<CreateMotorcycleRequest, Motorcycle>()
             .ForMember(x => x.Plate, opt => opt.MapFrom(x => x.Plate.ToUpper()));
     }

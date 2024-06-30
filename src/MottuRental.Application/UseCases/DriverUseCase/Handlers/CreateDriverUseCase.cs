@@ -21,31 +21,38 @@ public class CreateDriverUseCase(
 {
     private readonly IDriverService _driverService = driverService;
     private static DateTime HasFullAge => DateTime.UtcNow.AddYears(-18).Date;
-    const string driverImagesPath = @"C:\MotturentalDriverImages";
+    const string driverImagesPath = @"C:\MotturentalDriverCnhImages";
 
     public override async Task<CreateDriverReponse> HandleSafeMode(CreateDriverRequest request, CancellationToken cancellationToken)
     {
-        if (HasFullAge >= request.BirthDate.Date)
+        try
         {
-            FileHelper.CreateFolder(driverImagesPath);
-
-            var response = await _driverService.RegisterDriverAsync(_mapper.Map<Driver>(request), cancellationToken);
-
-            if (response is null)
+            if (HasFullAge >= request.BirthDate.Date)
             {
-                Notifications.Handle(DomainNotification.Error("_001", "This driver has already exist"));
-                return default;
+                FileHelper.CreateFolder(driverImagesPath);
+
+                var response = await _driverService.RegisterDriverAsync(_mapper.Map<Driver>(request), cancellationToken);
+
+                if (response is null)
+                {
+                    Notifications.Handle(DomainNotification.Error("_001", "This driver has already exist"));
+                    return default;
+                }
+
+                await FileHelper.SetImageInFolderAsync(driverImagesPath, response.ImagemCNH, await request.File.ToByteAsync());
+
+                await SaveChangesAsync();
+
+                return new CreateDriverReponse { Id = response.Id, IsRegistered = true };
             }
 
-            response.SetImageName($"{response.Id}.{request.File.FileName.Split('.')[1]}");
-            await FileHelper.SetImageInFolderAsync(driverImagesPath, response.ImagemCNH, await request.File.ToByteAsync());
-
-            await SaveChangesAsync();
-
-            return new CreateDriverReponse { Id = response.Id, IsRegistered = true };
+            Notifications.Handle(DomainNotification.Error("_006", "This driver is not full of age"));
+            return default;
         }
-
-        Notifications.Handle(DomainNotification.Error("_006", "This driver is not full of age"));
-        return default;
+        catch (Exception ex)
+        {
+            Notifications.Handle(DomainNotification.Error("_007", $"{ex.Message}"));
+            return default;
+        }
     }
 }
