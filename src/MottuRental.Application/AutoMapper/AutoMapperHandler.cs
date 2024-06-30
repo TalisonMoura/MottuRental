@@ -2,9 +2,9 @@
 using MottuRental.Domain.Models;
 using MottuRental.Application.UseCases.DriverUseCase.Request;
 using MottuRental.Application.UseCases.DriverUseCase.Response;
+using MottuRental.Application.UseCases.AllocateUseCase.Response;
 using MottuRental.Application.UseCases.MotorcycleUseCase.Request;
 using MottuRental.Application.UseCases.MotorcycleUseCase.Response;
-using MottuRental.Application.UseCases.AllocateUseCase.Response;
 
 namespace MottuRental.Application.AutoMapper;
 

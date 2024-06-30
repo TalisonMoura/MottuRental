@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using MottuRental.Domain.Enums;
 using MottuRental.Api.Controllers.Base;
 using Swashbuckle.AspNetCore.Annotations;
 using MottuRental.Domain.Core.Notifications;
@@ -12,15 +11,15 @@ using MottuRental.Application.UseCases.DriverUseCase.Response;
 namespace MottuRental.Api.Controllers;
 
 public class DriverController(
-    IMediator mediator, 
+    IMediator mediator,
     IHandler<DomainNotification> notifications) : MainController(mediator, notifications)
 {
-    [HttpPost("{cnhType}")]
+    [HttpPost]
+    [Consumes("multipart/form-data")]
     [SwaggerResponse(StatusCodes.Status201Created, null, typeof(CreateDriverReponse))]
-    public async Task<ActionResult<CreateDriverReponse>> PostAsync(CnhType cnhType, CreateDriverRequest request)
+    public async Task<ActionResult<CreateDriverReponse>> PostAsync(DriverParametes request)
     {
-        request.AssignCnh(cnhType);
         Notifications.LogInfo($"Creating a driver with payload: {request.ToJson()}");
-        return Response(await _mediator.Send(request));
+        return Response(await _mediator.Send(new CreateDriverRequest(request)));
     }
 }

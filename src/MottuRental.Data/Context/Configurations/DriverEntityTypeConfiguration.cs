@@ -32,5 +32,9 @@ public class DriverEntityTypeConfiguration : EntityTypeConfiguration<Driver>
         builder.HasOne(x => x.Allocate)
             .WithOne(x => x.Driver)
             .HasForeignKey<Allocate>(x => x.DriverId);
+
+        builder.HasOne(x => x.Profile)
+            .WithMany(x => x.Drivers)
+            .HasForeignKey(x => x.ProfileId);
     }
 }

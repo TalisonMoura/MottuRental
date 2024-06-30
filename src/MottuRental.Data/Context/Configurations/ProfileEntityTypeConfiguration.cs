@@ -2,7 +2,6 @@
 using MottuRental.Domain.Models.AccessControl;
 using MottuRental.Data.Context.Configurations.Base;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using MottuRental.Domain.Models;
 
 namespace MottuRental.Data.Context.Configurations;
 
@@ -19,10 +18,6 @@ public class ProfileEntityTypeConfiguration : EntityTypeConfiguration<Profile>
         builder.HasOne(x => x.User)
             .WithOne(x => x.Profile)
             .HasForeignKey<User>(x => x.ProfileId);
-
-        builder.HasOne(x => x.Driver)
-            .WithOne(x => x.Profile)
-            .HasForeignKey<Driver>(x => x.ProfileId);
 
         builder.HasData(ProfileData);
     }

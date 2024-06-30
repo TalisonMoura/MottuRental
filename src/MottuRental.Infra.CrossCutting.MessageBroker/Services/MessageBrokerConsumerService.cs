@@ -28,7 +28,7 @@ public class MessageBrokerConsumerService(
         catch (Exception ex)
         {
             Logger.LogError(ex, ex.Message);
-            return default;
+            throw;
         }
     }
 

@@ -17,6 +17,6 @@ public class MessageBrokerProducerService(
         ExchangeDeclare("motorcycle", ExchangeType.Fanout);
         QueueDeclare(endpoint, false);
         QueueBind("motorcyle", "info");
-        Channel.BasicPublish(exchange: "motorcycle", routingKey: "info", basicProperties: null, body: message.ToJson().ToByte());
+        Channel.BasicPublish(exchange: "motorcycle", routingKey: "info", basicProperties: null, body: message.ToJsonByte());
     }
 }

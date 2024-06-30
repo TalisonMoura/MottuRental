@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using System.Text.Json.Serialization;
 
 namespace MottuRental.Domain.Core.Messages;
 
@@ -11,7 +12,7 @@ public abstract record EventRequest : RequestBase, INotification
 
 public abstract record RequestBase
 {
-    public DateTime Timestamp { get; private set; } = DateTime.UtcNow;
+    [JsonIgnore] public DateTime Timestamp { get; private set; } = DateTime.UtcNow;
 }
 
 public abstract record ResponseBase
