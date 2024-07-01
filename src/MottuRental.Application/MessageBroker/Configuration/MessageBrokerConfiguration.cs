@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using MottuRental.Application.MessageBroker.Base;
 
 namespace MottuRental.Application.MessageBroker.Configuration;
 
@@ -8,7 +9,7 @@ public static class MessageBrokerConfiguration
     {
         ArgumentNullException.ThrowIfNull(services, nameof(services));
 
-        services.AddHostedService<MessaBrokerWorker>();
+        services.AddHostedService<ConsumerBase>();
 
         return services;
     }

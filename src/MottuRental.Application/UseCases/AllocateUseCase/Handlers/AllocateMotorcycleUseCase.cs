@@ -8,8 +8,6 @@ using MottuRental.Application.UseCases.Base;
 using MottuRental.Domain.Interfaces.Services;
 using MottuRental.Domain.Interfaces.Repository;
 using MottuRental.Domain.Core.Notifications.Interfaces;
-using MottuRental.Infra.CrossCutting.Commons.Providers;
-using MottuRental.Infra.CrossCutting.MessageBroker.Interfaces;
 using MottuRental.Application.UseCases.AllocateUseCase.Request;
 using MottuRental.Application.UseCases.AllocateUseCase.Response;
 
@@ -22,15 +20,11 @@ public class AllocateMotorcycleUseCase(
     IAllocateService baseService,
     IDriverService driverService,
     IMotorcycleService motorcycleService,
-    IMessageBrokerProducer messageProducer,
-    IHandler<DomainNotification> notifications,
-    MessageBrokerQueuesProvider producerProvider) : UseCaseBase<AllocateMotorcycleRequest, AllocateMotorcycleResponse>(mapper, mediator, unitOfWork, notifications)
+    IHandler<DomainNotification> notifications) : UseCaseBase<AllocateMotorcycleRequest, AllocateMotorcycleResponse>(mapper, mediator, unitOfWork, notifications)
 {
     private readonly IAllocateService _baseService = baseService;
     private readonly IDriverService _driverService = driverService;
-    private readonly IMessageBrokerProducer _messageProducer = messageProducer;
     private readonly IMotorcycleService _motorcycleService = motorcycleService;
-    private readonly MessageBrokerQueuesProvider _producerProvider = producerProvider;
 
     public override async Task<AllocateMotorcycleResponse> HandleSafeMode(AllocateMotorcycleRequest request, CancellationToken cancellationToken)
     {
@@ -57,10 +51,5 @@ public class AllocateMotorcycleUseCase(
         var driver = await _driverService.ExecuteQueryAsNoTracking.FirstOrDefaultAsync(x => x.Id.Equals(request.DriverId), cancellationToken);
         var motorcycle = await _motorcycleService.ExecuteQuery.Where(x => !x.IsAllocated).FirstOrDefaultAsync(x => x.Id.Equals(request.MotorcycleId), cancellationToken);
         return (motorcycle, driver);
-    }
-
-    private void PublishNotification(object message)
-    {
-        _messageProducer.SendMessage(_producerProvider.Producer.MotorcycleEvent, message);
     }
 }

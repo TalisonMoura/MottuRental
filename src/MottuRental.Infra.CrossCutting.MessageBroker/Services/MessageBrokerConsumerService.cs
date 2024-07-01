@@ -11,19 +11,22 @@ public class MessageBrokerConsumerService(
     MessageBrokerHostProvider hostProvider,
     ILogger<MessageBrokerConsumerService> logger) : MessageBrokerBase<MessageBrokerConsumerService>(hostProvider, logger), IMessageBrokerConsumer
 {
-    public T GetMessage<T>(string endpoint)
+    public async Task<T> GetMessage<T>(string endpoint)
     {
         try
         {
-            string message = null;
             var consumer = new EventingBasicConsumer(Channel);
+            var receivedMessage = new TaskCompletionSource<string>();
 
             consumer.Received += (model, @event) =>
             {
-                message = @event.Body.ToArray().GetStringFromByte();
-                Thread.Sleep(1000);
+                if (!receivedMessage.Task.IsCompleted)
+                    receivedMessage.SetResult(@event.Body.ToArray().GetStringFromByte());
             };
-            return HasMessage(message, endpoint, consumer) ? message.ToObject<T>() : default;
+            BasicConsume(endpoint, consumer);
+
+            var message = await receivedMessage.Task;
+            return HasMessage(message, endpoint) ? message.ToObject<T>() : default;
         }
         catch (Exception ex)
         {
@@ -32,12 +35,11 @@ public class MessageBrokerConsumerService(
         }
     }
 
-    private bool HasMessage(string message, string endpoint, EventingBasicConsumer consumer)
+    private bool HasMessage(string message, string endpoint)
     {
         if (message is not null)
         {
-            BasicConsume(endpoint, consumer);
-            Logger.LogInformation($"Received message from queue: {endpoint} with payload: {message}");
+            Logger.LogInformation($"Received message from queue: [{endpoint}] with payload: [{message}]");
             return true;
         }
         return false;

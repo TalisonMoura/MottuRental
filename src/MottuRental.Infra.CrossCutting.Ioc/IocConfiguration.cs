@@ -50,6 +50,7 @@ public static class IocConfiguration
         services.AddScoped<IDriverService, DriverService>();
         services.AddScoped<IAllocateService, AllocateService>();
         services.AddScoped<IMotorcycleService, MotorcycleService>();
+        services.AddScoped<IMotorcycleEventService, MotorcycleEventService>();
 
         services.AddScoped<IRequestHandler<CreateDriverRequest, CreateDriverReponse>, CreateDriverUseCase>();
 
@@ -59,6 +60,8 @@ public static class IocConfiguration
         services.AddScoped<IRequestHandler<GetMotorcycleByFilterRequest, List<GetMotorcycleByFilterResponse>>, GetMotorcycleByFilterUseCase>();
         services.AddScoped<IRequestHandler<DeleteMotorcycleRequest, bool>, DeleteMotorcycleUseCase>();
         services.AddScoped<IRequestHandler<UpdateMotorcycleRequest, bool>, UpdateMotorcycleUseCase>();
+
+        services.AddScoped<IRequestHandler<CreateMotorcycleEventByNotificationRequest, bool>, CreateMotorcycleEventByNotificationUseCase>();
 
         return services;
     }

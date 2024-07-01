@@ -14,9 +14,9 @@ public class MessageBrokerProducerService(
     public void SendMessage(string endpoint, object message)
     {
         Logger.LogInformation($"Publishing message with payload {message.ToJson()}");
-        ExchangeDeclare("motorcycle", ExchangeType.Fanout);
+        //ExchangeDeclare("motorcycle", ExchangeType.Fanout);
         QueueDeclare(endpoint, false);
-        QueueBind("motorcyle", "info");
-        Channel.BasicPublish(exchange: "motorcycle", routingKey: "info", basicProperties: null, body: message.ToJsonByte());
+        //QueueBind("motorcyle", "info");
+        Channel.BasicPublish(exchange: string.Empty, routingKey: endpoint, basicProperties: null, body: message.ToJsonByte());
     }
 }

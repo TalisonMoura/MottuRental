@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Hosting;
 using MottuRental.Domain.Core.Notifications;
 using Microsoft.Extensions.DependencyInjection;
 using MottuRental.Domain.Core.Notifications.Interfaces;
@@ -8,19 +9,13 @@ using MottuRental.Application.UseCases.MotorcycleUseCase.Request;
 
 namespace MottuRental.Application.MessageBroker.Base;
 
-public abstract class ConsumerBase
+public abstract class ConsumerBase(IServiceProvider serviceProvider, MessageBrokerQueuesProvider consumerProvider) : BackgroundService
 {
-    private readonly IServiceProvider _serviceProvider;
-    private readonly MessageBrokerQueuesProvider.ConsumerProvider _consumerProvider;
+    private readonly IServiceProvider _serviceProvider = serviceProvider;
+    private readonly MessageBrokerQueuesProvider _consumerProvider = consumerProvider;
     protected IHandler<DomainNotification> Notifications { get; set; }
 
-    protected ConsumerBase(IServiceProvider serviceProvider, MessageBrokerQueuesProvider consumerProvider)
-    {
-        _serviceProvider = serviceProvider;
-        _consumerProvider = consumerProvider.Consumer;
-    }
-
-    protected async Task Consume()
+    protected async override Task ExecuteAsync(CancellationToken stoppingToken)
     {
         using var scope = _serviceProvider.CreateScope();
         var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
@@ -40,7 +35,7 @@ public abstract class ConsumerBase
 
     private async Task ProcessRegisterMotorcycleRequest(IMessageBrokerConsumer received, IMediator mediator)
     {
-        var request = received.GetMessage<CreateMotorcycleRequest>(_consumerProvider.MotorcycleEvent);
+        var request = await received.GetMessage<CreateMotorcycleEventByNotificationRequest>(_consumerProvider.Consumer.MotorcycleEvent);
         if (request is not null)
             await mediator.Send(request);
     }

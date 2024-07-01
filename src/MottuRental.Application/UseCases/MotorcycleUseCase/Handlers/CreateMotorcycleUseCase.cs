@@ -5,7 +5,10 @@ using MottuRental.Application.UseCases.Base;
 using MottuRental.Domain.Core.Notifications;
 using MottuRental.Domain.Interfaces.Services;
 using MottuRental.Domain.Interfaces.Repository;
+using MottuRental.Infra.CrossCutting.Commons.Providers;
 using MottuRental.Domain.Core.Notifications.Interfaces;
+using MottuRental.Infra.CrossCutting.Commons.Extensions;
+using MottuRental.Infra.CrossCutting.MessageBroker.Interfaces;
 using MottuRental.Application.UseCases.MotorcycleUseCase.Request;
 using MottuRental.Application.UseCases.MotorcycleUseCase.Response;
 
@@ -16,9 +19,13 @@ public class CreateMotorcycleUseCase(
     IMediator mediator,
     IUnitOfWork unitOfWork,
     IMotorcycleService baseService,
-    IHandler<DomainNotification> notifications) : UseCaseBase<CreateMotorcycleRequest, CreateMotorcycleResponse>(mapper, mediator, unitOfWork, notifications)
+    IMessageBrokerProducer messageProducer,
+    IHandler<DomainNotification> notifications,
+    MessageBrokerQueuesProvider producerProvider) : UseCaseBase<CreateMotorcycleRequest, CreateMotorcycleResponse>(mapper, mediator, unitOfWork, notifications)
 {
     private readonly IMotorcycleService _baseService = baseService;
+    private readonly IMessageBrokerProducer _messageProducer = messageProducer;
+    private readonly MessageBrokerQueuesProvider _producerProvider = producerProvider;
 
     public override async Task<CreateMotorcycleResponse> HandleSafeMode(CreateMotorcycleRequest request, CancellationToken cancellationToken)
     {
@@ -30,8 +37,17 @@ public class CreateMotorcycleUseCase(
             return default;
         }
 
-        await SaveChangesAsync();
+        if (await SaveChangesAsync() && entity.Year.Equals(2024))
+            SendNotification(entity);
 
         return new CreateMotorcycleResponse { Id = entity.Id, IsRegistered = true };
+    }
+
+    private void SendNotification(object @event)
+    {
+        if (@event is Motorcycle motorcycle)
+        {
+            _messageProducer.SendMessage(_producerProvider.Producer.MotorcycleEvent, new { MotorcycleId = motorcycle.Id, Motorcycle = motorcycle.ToJson() });
+        }
     }
 }

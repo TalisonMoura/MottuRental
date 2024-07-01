@@ -2,5 +2,5 @@
 
 public interface IMessageBrokerConsumer
 {
-    T GetMessage<T>(string endpoint);
+    Task<T> GetMessage<T>(string endpoint);
 }

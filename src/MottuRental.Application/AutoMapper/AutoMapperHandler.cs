@@ -5,6 +5,7 @@ using MottuRental.Application.UseCases.DriverUseCase.Response;
 using MottuRental.Application.UseCases.AllocateUseCase.Response;
 using MottuRental.Application.UseCases.MotorcycleUseCase.Request;
 using MottuRental.Application.UseCases.MotorcycleUseCase.Response;
+using MottuRental.Domain.Event;
 
 namespace MottuRental.Application.AutoMapper;
 
@@ -25,6 +26,7 @@ public class AutoMapperHandler : Profile
             });
         CreateMap<CreateMotorcycleRequest, Motorcycle>()
             .ForMember(x => x.Plate, opt => opt.MapFrom(x => x.Plate.ToUpper()));
+        CreateMap<CreateMotorcycleEventByNotificationRequest, MotorcycleEvent>();
     }
 
     public void ResponseMapper()

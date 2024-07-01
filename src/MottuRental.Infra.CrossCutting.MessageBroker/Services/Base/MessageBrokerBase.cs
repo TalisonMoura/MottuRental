@@ -28,6 +28,7 @@ public abstract class MessageBrokerBase<T>
     }
 
     protected string QueueName => Channel.QueueDeclare().QueueName;
+    protected void BasicCancel(string tag) => Channel.BasicCancel(tag);
     protected void ExchangeDeclare(string exchange, string type) => Channel.ExchangeDeclare(exchange: exchange, type: type);
     protected void QueueBind(string exchange, string key) => Channel.QueueBind(queue: QueueName, exchange: exchange, routingKey: key);
     protected void BasicConsume(string queue, EventingBasicConsumer consumer) => Channel.BasicConsume(queue: queue, autoAck: true, consumer: consumer);
