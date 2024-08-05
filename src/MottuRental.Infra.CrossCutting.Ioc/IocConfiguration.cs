@@ -9,6 +9,9 @@ using MottuRental.Domain.Interfaces.Repository;
 using MottuRental.Domain.Interfaces.Repository.Base;
 using MottuRental.Domain.Core.Notifications.Interfaces;
 using MottuRental.Infra.CrossCutting.MessageBroker.Services;
+using MottuRental.Application.UseCases.LoginUseCase.Request;
+using MottuRental.Application.UseCases.LoginUseCase.Response;
+using MottuRental.Application.UseCases.LoginUseCase.Handlers;
 using MottuRental.Application.UseCases.DriverUseCase.Request;
 using MottuRental.Application.UseCases.DriverUseCase.Response;
 using MottuRental.Infra.CrossCutting.MessageBroker.Interfaces;
@@ -47,6 +50,7 @@ public static class IocConfiguration
 
     public static IServiceCollection RegisterDomainService(IServiceCollection services)
     {
+        services.AddScoped<IUserService, UserService>();
         services.AddScoped<IDriverService, DriverService>();
         services.AddScoped<IAllocateService, AllocateService>();
         services.AddScoped<IMotorcycleService, MotorcycleService>();
@@ -62,6 +66,8 @@ public static class IocConfiguration
         services.AddScoped<IRequestHandler<UpdateMotorcycleRequest, bool>, UpdateMotorcycleUseCase>();
 
         services.AddScoped<IRequestHandler<CreateMotorcycleEventByNotificationRequest, bool>, CreateMotorcycleEventByNotificationUseCase>();
+
+        services.AddScoped<IRequestHandler<LoginRequest, LoginResponse>, LoginUseCase>();
 
         return services;
     }

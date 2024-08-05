@@ -9,7 +9,7 @@ using MottuRental.Application.UseCases.MotorcycleUseCase.Request;
 
 namespace MottuRental.Application.MessageBroker.Base;
 
-public abstract class ConsumerBase(IServiceProvider serviceProvider, MessageBrokerQueuesProvider consumerProvider) : BackgroundService
+public sealed class ConsumerBase(IServiceProvider serviceProvider, MessageBrokerQueuesProvider consumerProvider) : BackgroundService
 {
     private readonly IServiceProvider _serviceProvider = serviceProvider;
     private readonly MessageBrokerQueuesProvider _consumerProvider = consumerProvider;

@@ -4,6 +4,7 @@ namespace MottuRental.Domain.Interfaces.Repository.Base;
 
 public interface IBaseRepository<T> : IDisposable where T : Entity
 {
+    Task<List<T>> GetBySqlQueryAsync(string query, CancellationToken cancellationToken = default);
     Task<T> RegisterAsync(T entity, CancellationToken cancellationToken = default);
     Task<T> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
     Task<bool> ExistsAsync(Guid id, CancellationToken cancellationToken = default);

@@ -22,6 +22,8 @@ public class BaseRepository<T>(ApplicationDbContext context) : IBaseRepository<T
 
     public async Task<T> GetByIdAsync(Guid id, CancellationToken cancellationToken = default) => await _dbSet.FirstOrDefaultAsync(x => x.Id.Equals(id), cancellationToken);
 
+    public async Task<List<T>> GetBySqlQueryAsync(string query, CancellationToken cancellationToken = default) => await _dbSet.FromSql($"{query}").ToListAsync(cancellationToken);
+
     public async Task<bool> ExistsAsync(Guid id, CancellationToken cancellationToken = default) => await _dbSet.AnyAsync(x => x.Id.Equals(id), cancellationToken);
 
     public async Task<int> DeleteAsync(Guid id, CancellationToken cancellationToken = default) => await _dbSet.Where(x => x.Id.Equals(id)).ExecuteDeleteAsync(cancellationToken);

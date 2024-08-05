@@ -27,6 +27,15 @@ public abstract class BaseServiceEntity<T> : BaseService, IBaseServiceEntity<T> 
         return await BaseRepository.RegisterAsync(entity, cancellationToken);
     }
 
+    public async Task<List<T>> GetBySqlQueryAsync(string query, CancellationToken cancellationToken = default)
+    {
+        if (!string.IsNullOrEmpty(query))
+        {
+            return await BaseRepository.GetBySqlQueryAsync(query, cancellationToken);
+        }
+        return default;
+    }
+
     public async Task<T> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         if (id.Equals(null))
