@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MottuRental.Api.Controllers.Base;
+using Microsoft.AspNetCore.Authorization;
 using Swashbuckle.AspNetCore.Annotations;
 using MottuRental.Domain.Core.Notifications;
 using MottuRental.Application.Commons.Responses;
