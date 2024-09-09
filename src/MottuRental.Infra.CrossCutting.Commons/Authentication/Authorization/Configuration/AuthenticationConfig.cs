@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using MottuRental.Infra.CrossCutting.Commons.Providers;
 
 namespace MottuRental.Infra.CrossCutting.Commons.Authentication.Authorization.Configuration;
 
@@ -21,7 +22,7 @@ public static class AuthenticationConfig
             x.TokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT_SECRET"])),
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetSection("JwtProvider").Get<JwtProvider>().JwtSecret)),
                 ValidateAudience = false,
                 ValidateIssuer = false
             };

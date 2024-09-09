@@ -15,6 +15,7 @@ public class Startup
         Configuration = new ConfigurationBuilder()
                             .SetBasePath(environment.ContentRootPath)
                             .AddJsonFile("appsettings.json", true, true)
+                            .AddJsonFile("Properties\\launchSettings.json", true, true)
                             .AddJsonFile($"appsettings.{environment.EnvironmentName}.json", true, true)
                             .AddEnvironmentVariables().Build();
     }

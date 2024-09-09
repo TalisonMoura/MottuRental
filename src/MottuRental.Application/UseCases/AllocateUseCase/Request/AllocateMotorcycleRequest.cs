@@ -8,17 +8,15 @@ namespace MottuRental.Application.UseCases.AllocateUseCase.Request;
 
 public record AllocateMotorcycleRequest : CommandRequest<AllocateMotorcycleResponse>
 {
+    [Required] public Guid DriverId { get; set; }
+    [Required] public Guid MotorcycleId { get; set; }
     [Required] public DateTime StartDate { get; set; }
     [Required] public DateTime DeliveryForecast { get; set; }
     [JsonIgnore] public PlanType PlanType { get; private set; }
-    [JsonIgnore] public Guid DriverId { get; private set; }
-    [JsonIgnore] public Guid MotorcycleId { get; private set; }
 
-    public AllocateMotorcycleRequest AssignId(Guid drriverId, Guid motorcycleId, PlanType planType)
+    public AllocateMotorcycleRequest AssignType(PlanType planType)
     {
         PlanType = planType;
-        DriverId = drriverId;
-        MotorcycleId = motorcycleId;
         return this;
     }
 }

@@ -37,7 +37,7 @@ public class MessageBrokerConsumerService(
 
     private bool HasMessage(string message, string endpoint)
     {
-        if (message is not null)
+        if (!message.IsNullOrWhiteSpace())
         {
             Logger.LogInformation($"Received message from queue: [{endpoint}] with payload: [{message}]");
             return true;

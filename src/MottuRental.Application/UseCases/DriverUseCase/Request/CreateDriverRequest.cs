@@ -2,13 +2,15 @@
 using Microsoft.AspNetCore.Http;
 using MottuRental.Domain.Core.Messages;
 using System.ComponentModel.DataAnnotations;
+using MottuRental.Domain.Core.Notifications;
+using MottuRental.Domain.Core.Notifications.Interfaces;
+using MottuRental.Infra.CrossCutting.Commons.Extensions;
 using MottuRental.Application.UseCases.DriverUseCase.Response;
 
 namespace MottuRental.Application.UseCases.DriverUseCase.Request;
 
 public record CreateDriverRequest : CommandRequest<CreateDriverReponse>
 {
-
     public string Name { get; set; }
     public string Cnpj { get; set; }
     public DateTime BirthDate { get; set; }
@@ -25,6 +27,16 @@ public record CreateDriverRequest : CommandRequest<CreateDriverReponse>
         BirthDate = driver.BirthDate;
         NumeroCNH = driver.NumeroCNH;
     }
+
+    public void ValidateRequest(IHandler<DomainNotification> notifications)
+    {
+        if (!BirthDate.HasFullAge())
+            notifications.Handle(DomainNotification.Error("_006", "This driver is not full of age"));
+        if (!Cnpj.IsValidCNPJ())
+            notifications.Handle(DomainNotification.Error("_010", "This driver have invalid Cnpj"));
+        if (!NumeroCNH.IsValidCnh())
+            notifications.Handle(DomainNotification.Error("_011", "This driver have invalid Cnh"));
+    }
 }
 
 public record DriverParametes
@@ -36,6 +48,8 @@ public record DriverParametes
     [Required]
     [Length(14, 14)]
     public string Cnpj { get; set; }
+
+    [Required]
     public DateTime BirthDate { get; set; }
 
     [Required]

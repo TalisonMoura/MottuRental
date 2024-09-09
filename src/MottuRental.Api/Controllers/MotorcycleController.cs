@@ -12,6 +12,7 @@ using MottuRental.Application.UseCases.MotorcycleUseCase.Response;
 
 namespace MottuRental.Api.Controllers;
 
+[Authorize(Roles = "Manager")]
 public class MotorcycleController(
     IMediator mediator,
     IHandler<DomainNotification> notifications) : MainController(mediator, notifications)
